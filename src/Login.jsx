@@ -5,7 +5,7 @@ import "./login.css";
 
 function Login({ onLogin }) {
   const handleLogin = () => {
-    window.location.href = getTokenFromResponse;
+    window.location.href = getTokenFromResponse();
     window.addEventListener("message", (event) => {
       const token = event.data.access_token;
       if (token) {

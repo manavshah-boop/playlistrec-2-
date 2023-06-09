@@ -1,15 +1,14 @@
 import request from "superagent";
+import SpotifyWebApi from "spotify-web-api-node";
 
-var SpotifyWebApi = require("spotify-web-api-node");
-
-// credentials are optional
-var spotifyApi = new SpotifyWebApi({
+// Credentials are optional
+const spotifyApi = new SpotifyWebApi({
   clientId: "fcecfc72172e4cd267473117a17cbd4d",
   clientSecret: "a6338157c9bb5ac9c71924cb2940e1a7",
-  redirectUri: "www.google.com",
+  redirectUri: "http://localhost:3000/callback", // Replace with your actual redirect URI
 });
 
-export const getTokenFromResponse = () => {
+export const getTokenFromResponse = async () => {
   const hash = window.location.hash
     .substring(1)
     .split("&")
@@ -23,7 +22,16 @@ export const getTokenFromResponse = () => {
 
   window.location.hash = "";
 
-  const { access_token } = hash;
+  const { code } = hash;
 
-  return access_token;
+  try {
+    const data = await spotifyApi.authorizationCodeGrant(code);
+    const { access_token } = data.body;
+    return access_token;
+  } catch (error) {
+    console.error("Error getting access token:", error);
+    return null;
+  }
 };
+
+export default spotifyApi;
