@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'SpotifyAddOn'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1805F62E66214130B5C63ADF88B04F0A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E236F30A7F8C430EBD7648D61A245A82 }}
           package: .
